@@ -1,11 +1,17 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
+	import { onMount, type Snippet } from 'svelte';
 
 	import '../app.css';
 
 	import favicon from '$lib/assets/favicon.svg';
 
+	import { theme } from '$stores';
+
 	let { children }: { children: Snippet } = $props();
+
+	onMount(() => {
+		theme.init();
+	});
 </script>
 
 <svelte:head>
