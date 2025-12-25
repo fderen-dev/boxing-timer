@@ -1,38 +1,131 @@
-# sv
+# Boxing Timer
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A Progressive Web App (PWA) for boxing training, built with Svelte 5 and SvelteKit.
 
-## Creating a project
+## Features
 
-If you're seeing this, you've probably already done this step. Congrats!
+- ⚡ **Svelte 5** with SvelteKit
+- 📦 **pnpm** for fast, efficient package management
+- 🔧 **TypeScript** with strict mode enabled
+- 🎯 **Path Aliases** for clean imports:
+  - `$components` → `src/lib/components`
+  - `$stores` → `src/lib/stores`
+  - `$utils` → `src/lib/utils`
+  - `$types` → `src/lib/types`
+  - `$assets` → `src/lib/assets`
+- 🔍 **ESLint** with flat config:
+  - TypeScript ESLint strict rules
+  - Svelte plugin
+  - Prettier integration
+- 💅 **Prettier** with:
+  - Svelte plugin
+  - Auto-import sorting (svelte → $app → $lib → aliases → relative)
+- 📱 **PWA** support via @vite-pwa/sveltekit:
+  - Offline functionality
+  - Standalone display mode
+  - Portrait orientation
+- 🪝 **Husky** + **lint-staged** for pre-commit hooks
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 20+
+- pnpm (will be installed if not present)
+
+### Installation
 
 ```sh
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
+# Install dependencies
+pnpm install
 ```
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+### Development
 
 ```sh
-npm run dev
+# Start development server
+pnpm dev
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+# Start and open in browser
+pnpm dev -- --open
 ```
 
-## Building
-
-To create a production version of your app:
+### Building
 
 ```sh
-npm run build
+# Create production build
+pnpm build
+
+# Preview production build
+pnpm preview
 ```
 
-You can preview the production build with `npm run preview`.
+## Available Scripts
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm preview` - Preview production build
+- `pnpm check` - Run TypeScript and Svelte checks
+- `pnpm check:watch` - Run checks in watch mode
+- `pnpm lint` - Lint code with ESLint
+- `pnpm lint:fix` - Lint and fix issues
+- `pnpm format` - Format code with Prettier
+- `pnpm format:check` - Check code formatting
+
+## Project Structure
+
+```
+boxing-timer/
+├── src/
+│   ├── lib/
+│   │   ├── assets/        # Static assets
+│   │   ├── components/    # Svelte components
+│   │   ├── stores/        # Svelte stores
+│   │   ├── types/         # TypeScript types
+│   │   └── utils/         # Utility functions
+│   ├── routes/            # SvelteKit routes
+│   ├── app.html           # HTML template
+│   └── app.d.ts           # Type definitions
+├── static/                # Static files (favicon, PWA icons, etc.)
+├── .husky/                # Git hooks
+├── eslint.config.js       # ESLint configuration
+├── .prettierrc            # Prettier configuration
+├── svelte.config.js       # SvelteKit configuration
+├── tsconfig.json          # TypeScript configuration
+└── vite.config.ts         # Vite configuration
+```
+
+## Configuration
+
+### TypeScript
+
+TypeScript is configured with strict mode enabled. Path aliases are configured in `svelte.config.js` and automatically recognized by TypeScript.
+
+### ESLint
+
+ESLint uses the new flat config format with:
+
+- Strict TypeScript rules
+- Svelte-specific linting
+- Prettier integration to avoid conflicts
+
+### Prettier
+
+Prettier is configured to:
+
+- Use tabs for indentation
+- Single quotes for strings
+- Sort imports automatically in the correct order
+
+### PWA
+
+The PWA is configured with:
+
+- Standalone display mode for app-like experience
+- Portrait orientation lock
+- Offline support with service worker
+- Precaching of static assets
+
+## License
+
+See [LICENSE](LICENSE) for details.

@@ -1,2 +1,22 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<script lang="ts">
+	import TimerDisplay from '$components/TimerDisplay.svelte';
+	import { timerStore } from '$stores/timer';
+</script>
+
+<h1>Boxing Timer</h1>
+<p>A Progressive Web App for boxing training</p>
+
+<TimerDisplay timer={$timerStore} />
+
+<style>
+	h1 {
+		color: #333;
+		font-size: 2rem;
+		margin-bottom: 1rem;
+	}
+
+	p {
+		color: #666;
+		margin-bottom: 2rem;
+	}
+</style>
