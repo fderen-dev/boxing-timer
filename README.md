@@ -1,8 +1,46 @@
 # Boxing Timer
 
-A Progressive Web App (PWA) for boxing training, built with Svelte 5 and SvelteKit.
+### Overview
 
-## Features
+A mobile-first progressive web application for boxing and combat sports training. The timer provides configurable round/rest intervals with audio and haptic feedback, designed for use in noisy gym environments with sweaty hands or boxing gloves.
+
+### Target Platform
+
+Primary: Mobile browsers (iOS Safari, Android Chrome)
+Secondary: Tablets and desktop
+
+### Core Functionality
+
+- Configurable rounds, round duration, and rest periods
+- Start/pause/reset controls with large touch targets
+- Audio bell and warning sounds with vibration feedback
+- Predefined presets (amateur, pro, Muay Thai) and custom preset saving
+- Automatic round/rest transitions
+
+### Technical Approach
+
+- TypeScript with strict mode
+- PWA architecture (offline-first, installable)
+- Web Audio API for reliable sound playback
+- Screen Wake Lock API and Vibration API
+- localStorage for preset persistence
+- Dark mode UI optimized for OLED battery savings
+
+### Key Constraints
+
+- Bundle size under 200KB
+- Touch targets minimum 56x56px
+- Timer must persist through screen lock and interruptions
+- High contrast visuals for bright gym lighting
+
+### Out of Scope (v1)
+
+- User accounts and cloud sync
+- Social/sharing features
+- Workout programming beyond timer
+- Desktop keyboard shortcuts
+
+## Tech stack
 
 - ⚡ **Svelte 5** with SvelteKit
 - 📦 **pnpm** for fast, efficient package management
