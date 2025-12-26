@@ -1,49 +1,39 @@
-import { writable } from 'svelte/store';
-
 import { browser } from '$app/environment';
 
 type Theme = 'light' | 'dark';
 
-function createThemeStore() {
-	const { subscribe, set, update } = writable<Theme>('light');
+class ThemeStore {
+	value = $state<Theme>('light');
 
-	return {
-		subscribe,
-		toggle: () => {
-			update((current) => {
-				const newTheme = current === 'dark' ? 'light' : 'dark';
-				if (browser) {
-					document.documentElement.classList.toggle('dark', newTheme === 'dark');
-					localStorage.setItem('theme', newTheme);
-				}
-				return newTheme;
-			});
-		},
-		set: (theme: Theme) => {
-			if (browser) {
-				document.documentElement.classList.toggle('dark', theme === 'dark');
-				localStorage.setItem('theme', theme);
-			}
-			set(theme);
-		},
-		init: () => {
-			if (!browser) return;
+	toggle(): void {
+		const newTheme = this.value === 'dark' ? 'light' : 'dark';
+		this.set(newTheme);
+	}
 
-			// Check localStorage first
-			const stored = localStorage.getItem('theme') as Theme | null;
-			if (stored) {
-				set(stored);
-				document.documentElement.classList.toggle('dark', stored === 'dark');
-				return;
-			}
+	set(theme: Theme): void {
+		this.value = theme;
 
-			// Check system preference
-			const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-			const theme = prefersDark ? 'dark' : 'light';
-			set(theme);
+		if (browser) {
 			document.documentElement.classList.toggle('dark', theme === 'dark');
+			localStorage.setItem('theme', theme);
 		}
-	};
+	}
+
+	init(): void {
+		if (!browser) return;
+
+		const stored = localStorage.getItem('theme') as Theme | null;
+
+		if (stored) {
+			this.set(stored);
+			return;
+		}
+
+		const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+		const theme = prefersDark ? 'dark' : 'light';
+		this.set(theme);
+	}
 }
 
-export const theme = createThemeStore();
+export const theme = new ThemeStore();
