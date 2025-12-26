@@ -3,6 +3,7 @@ import { browser } from '$app/environment';
 import type { TimerConfig, TimerState } from '$types/timer';
 
 import { audioService } from './audio.js';
+import { hapticService } from './haptic.js';
 import { wakeLockService } from './wake-lock.js';
 
 // Forward declaration to avoid circular dependency
@@ -38,7 +39,7 @@ class TimerService {
 			store.state.timeRemaining = store.config.roundDuration;
 			store.state.status = 'fighting';
 			audioService.playSound('bell');
-			this.vibrate([200]);
+			hapticService.vibrate([200]);
 		}
 
 		// Start countdown
@@ -116,7 +117,7 @@ class TimerService {
 				store.state.status = 'resting';
 				store.state.timeRemaining = store.config.restDuration;
 				audioService.playSound('bell');
-				this.vibrate([100, 50, 100]);
+				hapticService.vibrate([100, 50, 100]);
 			} else {
 				// All rounds complete
 				this.complete(store);
@@ -127,7 +128,7 @@ class TimerService {
 			store.state.status = 'fighting';
 			store.state.timeRemaining = store.config.roundDuration;
 			audioService.playSound('bell');
-			this.vibrate([200]);
+			hapticService.vibrate([200]);
 		}
 
 		this.warningPlayed = false;
@@ -165,7 +166,7 @@ class TimerService {
 					!this.warningPlayed
 				) {
 					audioService.playSound('warning');
-					this.vibrate([100]);
+					hapticService.vibrate([100]);
 					this.warningPlayed = true;
 				}
 
@@ -190,7 +191,7 @@ class TimerService {
 				this.store.state.status = 'resting';
 				this.store.state.timeRemaining = this.store.config.restDuration;
 				audioService.playSound('bell');
-				this.vibrate([200, 100, 200]);
+				hapticService.vibrate([200, 100, 200]);
 			} else {
 				// All rounds complete
 				this.complete(this.store);
@@ -201,7 +202,7 @@ class TimerService {
 			this.store.state.status = 'fighting';
 			this.store.state.timeRemaining = this.store.config.roundDuration;
 			audioService.playSound('bell');
-			this.vibrate([200]);
+			hapticService.vibrate([200]);
 		}
 
 		this.warningPlayed = false;
@@ -211,20 +212,8 @@ class TimerService {
 		store.state.status = 'complete';
 		store.state.timeRemaining = 0;
 		audioService.playSound('bell');
-		this.vibrate([200, 100, 200, 100, 200]);
+		hapticService.vibrate([200, 100, 200, 100, 200]);
 		this.stop();
-	}
-
-	private vibrate(pattern: number[]): void {
-		if (!browser) return;
-
-		try {
-			if ('vibrate' in navigator && typeof navigator.vibrate === 'function') {
-				navigator.vibrate(pattern);
-			}
-		} catch (error) {
-			console.warn('Failed to vibrate:', error);
-		}
 	}
 }
 
