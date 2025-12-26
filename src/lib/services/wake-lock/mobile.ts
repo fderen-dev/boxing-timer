@@ -1,6 +1,8 @@
 import { browser } from '$app/environment';
 
-class WakeLockService {
+import type { WakeLockStrategy } from './strategy.js';
+
+export class MobileWakeLockStrategy implements WakeLockStrategy {
 	private wakeLock: WakeLockSentinel | null = null;
 
 	async acquire(): Promise<void> {
@@ -39,5 +41,3 @@ class WakeLockService {
 		return 'wakeLock' in navigator;
 	}
 }
-
-export const wakeLockService = new WakeLockService();

@@ -1,6 +1,8 @@
 import { browser } from '$app/environment';
 
-class AudioService {
+import type { AudioStrategy } from './strategy.js';
+
+export class MobileAudioStrategy implements AudioStrategy {
 	private audioContext: AudioContext | null = null;
 	private bellAudio: AudioBuffer | null = null;
 	private warningAudio: AudioBuffer | null = null;
@@ -54,7 +56,7 @@ class AudioService {
 			const source = this.audioContext.createBufferSource();
 			const gainNode = this.audioContext.createGain();
 
-			// Volume boost for gym noise
+			// Volume boost for gym noise on mobile
 			gainNode.gain.value = this.volume;
 
 			source.buffer = audioBuffer;
@@ -71,6 +73,7 @@ class AudioService {
 		if (!browser) return;
 
 		try {
+			// Background audio loop for iOS to keep audio context alive
 			this.backgroundAudio = new Audio('/silent.mp3');
 			this.backgroundAudio.loop = true;
 			this.backgroundAudio.volume = 0.01;
@@ -105,5 +108,3 @@ class AudioService {
 		this.volume = Math.max(0, Math.min(1, volume));
 	}
 }
-
-export const audioService = new AudioService();

@@ -5,11 +5,12 @@
 
 	import favicon from '$lib/assets/favicon.svg';
 
-	import { theme } from '$stores';
+	import { device, theme } from '$stores';
 
 	let { children }: { children: Snippet } = $props();
 
 	onMount(() => {
+		device.init();
 		theme.init();
 	});
 </script>

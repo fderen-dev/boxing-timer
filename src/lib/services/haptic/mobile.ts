@@ -1,6 +1,8 @@
 import { browser } from '$app/environment';
 
-class HapticService {
+import type { HapticStrategy } from './strategy.js';
+
+export class MobileHapticStrategy implements HapticStrategy {
 	vibrate(pattern: number[]): void {
 		if (!browser) return;
 
@@ -18,5 +20,3 @@ class HapticService {
 		return 'vibrate' in navigator && typeof navigator.vibrate === 'function';
 	}
 }
-
-export const hapticService = new HapticService();

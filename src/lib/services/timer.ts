@@ -2,9 +2,9 @@ import { browser } from '$app/environment';
 
 import type { TimerConfig, TimerState } from '$types/timer';
 
-import { audioService } from './audio.js';
-import { hapticService } from './haptic.js';
-import { wakeLockService } from './wake-lock.js';
+import { audioService } from './audio/index.js';
+import { hapticService } from './haptic/index.js';
+import { wakeLockService } from './wake-lock/index.js';
 
 // Forward declaration to avoid circular dependency
 interface TimerStoreInterface {
