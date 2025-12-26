@@ -1,6 +1,8 @@
 import type { TimerConfig, TimerState } from '$types/timer';
 
-class TimerStore {
+import { timerService } from '../services/timer.js';
+
+export class TimerStore {
 	config = $state<TimerConfig>({
 		roundDuration: 180,
 		restDuration: 60,
@@ -23,28 +25,32 @@ class TimerStore {
 		this.config = config;
 	}
 
-	start(): void {
-		// Implementation for starting timer
+	async start(): Promise<void> {
+		await timerService.start(this);
 	}
 
 	pause(): void {
-		// Implementation for pausing timer
+		timerService.pause();
 	}
 
 	resume(): void {
-		// Implementation for resuming from paused
+		timerService.resume();
 	}
 
 	reset(): void {
-		// Implementation for resetting to idle state
+		timerService.stop();
+		this.state.status = 'idle';
+		this.state.currentRound = 0;
+		this.state.timeRemaining = 0;
+		this.state.isWarning = false;
 	}
 
 	skipRound(): void {
-		// Implementation for skipping to next round
+		timerService.skipRound(this);
 	}
 
 	restartRound(): void {
-		// Implementation for restarting current round
+		timerService.restartRound(this);
 	}
 }
 
