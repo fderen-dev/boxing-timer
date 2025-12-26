@@ -1,0 +1,33 @@
+:root {
+	/* Base (Dark Mode Default) */
+	--color-bg: #000000; /* Pure black for OLED */
+	--color-bg-elevated: #0a0a0a;
+	--color-text: #ffffff;
+	--color-text-muted: #a1a1aa;
+
+	/* State Colors */
+	--color-idle: #3f3f46; /* Zinc-700 */
+	--color-fighting: #22c55e; /* Green-500 */
+	--color-fighting-bg: #052e16; /* Green-950 */
+	--color-warning: #f59e0b; /* Amber-500 */
+	--color-warning-bg: #451a03; /* Amber-950 */
+	--color-resting: #3b82f6; /* Blue-500 */
+	--color-resting-bg: #172554; /* Blue-950 */
+	--color-complete: #a855f7; /* Purple-500 */
+
+	/* Touch Target */
+	--touch-target-min: 56px;
+
+	/* Typography Scale */
+	--font-size-countdown: 8rem; /* 128px */
+	--font-weight-countdown: 700;
+
+	--font-size-round-label: 1.5rem; /* 24px */
+	--font-weight-round-label: 600;
+
+	--font-size-status: 1.25rem; /* 20px */
+	--font-weight-status: 500;
+
+	--font-size-button: 1rem; /* 16px */
+	--font-weight-button: 600;
+}
