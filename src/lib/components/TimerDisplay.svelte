@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { timer } from '$stores/timer';
+	import { timer } from '$stores/timer.svelte.js';
 	import { formatTime } from '$utils/time';
 </script>
 

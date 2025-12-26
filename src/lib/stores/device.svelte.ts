@@ -1,6 +1,6 @@
 import { browser } from '$app/environment';
 
-import { detectDeviceType, type DeviceType } from '$utils/device';
+import { detectDeviceType, type DeviceType } from '$utils/device.js';
 
 class DeviceStore {
 	type = $state<DeviceType>(browser ? detectDeviceType() : 'desktop');

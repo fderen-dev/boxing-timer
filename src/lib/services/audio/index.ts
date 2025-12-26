@@ -1,4 +1,4 @@
-import { device } from '$stores/device';
+import { device } from '$stores/device.svelte.js';
 
 import { DesktopAudioStrategy } from './desktop.js';
 import { MobileAudioStrategy } from './mobile.js';

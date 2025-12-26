@@ -1,4 +1,4 @@
-import { device } from '$stores/device';
+import { device } from '$stores/device.svelte.js';
 
 import { DesktopHapticStrategy } from './desktop.js';
 import { MobileHapticStrategy } from './mobile.js';

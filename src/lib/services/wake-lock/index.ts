@@ -1,4 +1,4 @@
-import { device } from '$stores/device';
+import { device } from '$stores/device.svelte.js';
 
 import { DesktopWakeLockStrategy } from './desktop.js';
 import { MobileWakeLockStrategy } from './mobile.js';
