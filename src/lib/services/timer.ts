@@ -3,6 +3,7 @@ import { browser } from '$app/environment';
 import type { TimerConfig, TimerState } from '$types/timer';
 
 import { audioService } from './audio.js';
+import { wakeLockService } from './wake-lock.js';
 
 // Forward declaration to avoid circular dependency
 interface TimerStoreInterface {
@@ -14,7 +15,6 @@ class TimerService {
 	private intervalId: number | null = null;
 	private animationFrameId: number | null = null;
 	private lastTickTime: number = 0;
-	private wakeLock: WakeLockSentinel | null = null;
 	private warningPlayed: boolean = false;
 	private store: TimerStoreInterface | null = null;
 
@@ -30,7 +30,7 @@ class TimerService {
 		audioService.startBackgroundAudio();
 
 		// Acquire wake lock
-		await this.acquireWakeLock();
+		await wakeLockService.acquire();
 
 		// Start first round
 		if (store.state.status === 'idle') {
@@ -89,7 +89,7 @@ class TimerService {
 			this.intervalId = null;
 		}
 
-		this.releaseWakeLock();
+		wakeLockService.release();
 		audioService.stopBackgroundAudio();
 		audioService.cleanup();
 
@@ -224,37 +224,6 @@ class TimerService {
 			}
 		} catch (error) {
 			console.warn('Failed to vibrate:', error);
-		}
-	}
-
-	private async acquireWakeLock(): Promise<void> {
-		if (!browser) return;
-		if (!('wakeLock' in navigator)) return;
-
-		try {
-			const nav = navigator as Navigator & {
-				wakeLock?: { request(type: string): Promise<WakeLockSentinel> };
-			};
-			const wakeLockApi = nav.wakeLock;
-			// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-			if (wakeLockApi) {
-				const lock = await wakeLockApi.request('screen');
-				this.wakeLock = lock;
-				lock.addEventListener('release', () => {
-					this.wakeLock = null;
-				});
-			}
-		} catch (error) {
-			console.warn('Failed to acquire wake lock:', error);
-		}
-	}
-
-	private releaseWakeLock(): void {
-		if (this.wakeLock) {
-			this.wakeLock.release().catch((error: unknown) => {
-				console.warn('Failed to release wake lock:', error);
-			});
-			this.wakeLock = null;
 		}
 	}
 }
