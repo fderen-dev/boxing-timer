@@ -1,15 +1,13 @@
 <script lang="ts">
-	import type { Timer } from '$types/timer';
+	import { timer } from '$stores/timer';
 	import { formatTime } from '$utils/time';
-
-	let { timer }: { timer: Timer } = $props();
 </script>
 
 <div class="timer-display">
 	<h3>Timer Configuration</h3>
-	<p>Rounds: {timer.rounds}</p>
-	<p>Round Duration: {formatTime(timer.roundDuration)}</p>
-	<p>Rest Duration: {formatTime(timer.restDuration)}</p>
+	<p>Rounds: {timer.config.totalRounds}</p>
+	<p>Round Duration: {formatTime(timer.config.roundDuration)}</p>
+	<p>Rest Duration: {formatTime(timer.config.restDuration)}</p>
 </div>
 
 <style>

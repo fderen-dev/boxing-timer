@@ -1,12 +1,11 @@
 <script lang="ts">
 	import TimerDisplay from '$components/TimerDisplay.svelte';
-	import { timerStore } from '$stores/timer';
 </script>
 
 <h1>Boxing Timer</h1>
 <p>A Progressive Web App for boxing training</p>
 
-<TimerDisplay timer={$timerStore} />
+<TimerDisplay />
 
 <style>
 	h1 {
